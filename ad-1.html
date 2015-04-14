@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>L&ouml;sungsblatt Vorlage</title>
+<!-- morris graph lib -->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<!-- LaTeX-style equations -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- tests -->
+<script>
+  function assert(value, desc) {
+    var li = document.createElement("li");
+    li.style.color = value ? "green" : "red";
+    li.appendChild(document.createTextNode(desc));
+    var list = document.getElementById("results");
+    if (!list) {
+      list = document.createElement("div");
+      document.body.appendChild(list);
+    }
+    list.appendChild(li);
+  }
+</script>
+</head>
+<body>
+<h1 id="title">Enes Kaya, Marcel Lange</h1>
+
+
+</ul>
+
+<h2>
+Aufgabe 1
+</h2>
+<p>
+Gegeben seien ein Startpunkt $x \in \mathbb{N}$ und ein Zielpunkt $y \in \mathbb{N}$ auf einer Geraden,
+sowie ein Schrittma&szlig; $d \in \mathbb{N}$. Gesucht ist die Anzahl der Schritte
+$steps(x, y, d) \in \mathbb{N}$, die ben&ouml;tigt werden, um einen Punkt zu erreichen, dessen Wert
+gr&ouml;&szlig;er als $y$ ist.
+</p>
+<p>
+Beispiel: Bei der Eingabe $x = 15$, $y = 80$, $d = 30$ sind drei Schritte n&ouml;tig.
+</p>
+<ol>
+<li>
+Welchen Zeit- und welchen Platzaufwand hat eine naive Implementierung?
+</li>
+<li>
+Implementieren Sie die Methode $steps(x,y,d)$, welche die gesuchte Anzahl der Schritte in Zeitaufwand $O(1)$ und  Platzaufwand $O(1)$ berechnet.
+</li>
+</ol>
+<h2>
+Antwort 1
+</h2>
+	<ol>
+		<li>
+			Eine naive Implementierung, bspw. mittels einer Schleife, hat einen Laufzeitaufwand und Speicherplatzbedarf von $O(n)$
+		</li>
+		<li>
+			Siehe unten.
+		</li>
+	</ol>
+<h3>
+Implementierung
+</h3>
+<!-- In diesem Element wird der Inhalt des scripts mit der ID ad-1-1-results angezeigt -->
+<pre id="ad-1-1-source"></pre>
+<h3>
+Testergebnisse
+</h3>
+<div id="ad-1-1-results"></div>
+<!-- Code und Tests hier hin -->
+<script id="ad-1-1-code">
+  var ad_1_1_data = [];
+
+  // Experiments
+  for(i = 0; i < 100; i ++) {
+    ad_1_1_data.push({
+	      experiment : i,
+	      value : steps(15, 80, 30)
+      });
+  }
+
+  function steps (x, y, d) {
+	var start = x;
+	var ziel = y;
+	var schritt = d;
+
+	return Math.ceil((ziel - start) / schritt);
+  }
+
+  // Tests
+  assert(ad_1_1_data.length === 100, "experiments have collected data");
+  assert(typeof(steps) === 'function', "function 'steps' not implemented");
+  assert(steps(15, 80, 30) === 3, "Test 1"); 
+  assert(steps(1, 100, 1) === 99, "Test 2"); 
+  assert(steps(5, 25, 5) === 4, "Test 3"); 
+  assert(steps(0, 0, 1) === 0, "Test 4"); 
+
+</script>
+<!-- dieser Code zeigt die Implementierung und die Tests an -->
+<script>
+$('pre#ad-1-1-source').html($('#ad-1-1-code').html())
+</script>
+
+<h3>
+Experimente
+</h3>
+
+<div id="ad-1-1-experiments" style="height: 250px;"></div>
+<script>
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'ad-1-1-experiments',
+  // do values relate to dates (time)?
+  parseTime: false,
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: ad_1_1_data,
+  // The name of the data record attribute that contains x-values.
+  xkey: 'experiment',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['value'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['Value']
+});
+</script>
+
+<!-- Aufgabe 2 -->
+<h2>
+Aufgabe 2
+</h2>
+Dies ist nur eine Vorlage
+<h2>
+Antwort 2
+</h2>
+	<ul>
+		<li>
+			(2) Die Funktion <i>fib_direkt</i> hat eine Laufzeit von $O(1.6^n)$
+		</li>
+		<li>
+			 (5) 	$fib2$ und $fib3$ unterscheiden sich nicht anhand ihres Platzbedarfes.
+					Der Algorithmus für $fib2$ benötigt nur ein Array das sich $n$ mal verändert, also ist der Platzbedarf $O(n)$.Der Algorithmus für $fib3$ benötigt 3 Variablen die sich bei jeden Schritt ändern, also $n$ mal. Deshalb ist der Platzbedarf von $fib3$ $O(3*n) -> O(n)$
+		</li>
+	</ul>
+<h3>
+Implementierung
+</h3>
+<!-- In diesem Element wird der Inhalt des scripts mit der ID ad-1-2-code angezeigt -->
+<pre id="ad-1-2-source"></pre>
+<h3>
+Testergebnisse
+</h3>
+<div id="ad-1-2-results"></div>
+<!-- Code und Tests hier hin -->
+<script id="ad-1-2-code">
+  var ad_1_2_data = [];
+
+  function fib_direkt (n) {
+  	if(n <= 1) {
+  		return 1;
+  	}
+
+  	return (fib_direkt(n-1) + fib_direkt(n-2));
+  }
+
+  
+
+  var memo = [];
+  for (i = 0; i <= 30; i++) {
+  	memo[i] = 0;
+  }
+
+  memo[1] = 1;
+  memo[2] = 1;
+
+  function fib2 (n) {
+  	if (memo[n] != 0) {
+  		return memo[n];
+  	}
+
+  	memo[n] = fib2(n-1) + fib2(n-2);
+  	return memo[n];
+  }
+
+	function fib3(n, prev, cur) {
+		if (n === 0)
+	    	return 0;
+	    if (prev === null)
+	    	prev = 0;
+	    if (cur === null)
+	    	cur = 1;
+	    if (n < 2)
+	   		return cur;
+	    
+	    return fib3(n - 1, cur, cur + prev);
+	}
+
+  function fib4 (n) {
+  	var y = 0;
+  	var x = 1;
+  	var aux;
+
+  	for (i = 0; i < n; i++) {
+  		aux = y;
+  		y = x;
+  		x = x + aux;
+  	}
+
+  	return y;
+  }
+
+  // Tests
+  assert(fib2(2) === 1, "fib2(2) = 1");
+  assert(fib2(4) === 3, "fib2(4) = 3");
+  assert(fib2(12) === 144, "fib2(12) = 144");
+  assert(fib2(15) === 610, "fib2(15) = 610");
+
+  assert(fib3(2, null, null) === 1, "fib3(2) = 1");
+  assert(fib3(4, null, null) === 3, "fib3(4) = 3");
+  assert(fib3(12, null, null) === 144, "fib3(12) = 144");
+  assert(fib3(15, null, null) === 610, "fib3(15) = 610");
+
+  assert(fib4(2) === 1, "fib4(2) = 1");
+  assert(fib4(4) === 3, "fib4(4) = 3");
+  assert(fib4(12) === 144, "fib4(12) = 144");
+  assert(fib4(15) === 610, "fib4(15) = 610");
+
+
+  var zeitenFib = [];
+  var zeitenFib2 = [];
+  var zeitenFib3 = [];
+  var zeitenFib4 = [];
+
+  function experimente () {
+	for (i = 0; i < 35; i++) {
+		var t_start, t_end;
+		t_start = new Date().getTime();
+
+		fib_direkt(i);
+
+		t_end = new Date().getTime();
+		zeitenFib.push(t_end-t_start);
+	}
+
+	for (i = 0; i < 35; i++) {
+		var t_start, t_end;
+		t_start = new Date().getTime();
+
+		fib2(i);
+
+		t_end = new Date().getTime();
+		zeitenFib2.push(t_end-t_start);
+	}
+
+	for (i = 0; i < 35; i++) {
+		var t_start, t_end;
+		t_start = new Date().getTime();
+
+		fib3(i, null, null);
+		
+		t_end = new Date().getTime();
+		zeitenFib3.push(t_end-t_start);
+	}
+
+	for (i = 0; i < 35; i++) {
+		var t_start, t_end;
+		t_start = new Date().getTime();
+
+		fib4(i);
+		
+		t_end = new Date().getTime();
+		zeitenFib4.push(t_end-t_start);
+	}
+
+  }
+
+  experimente();
+
+  // Experiments
+  for(i = 0; i < zeitenFib.length - 1; i++) {
+    ad_1_2_data.push({
+      	experiment : i,
+      	fibdirekt : zeitenFib[i],
+      	fib2: zeitenFib2[i],
+      	fib3: zeitenFib3[i],
+      	fib4: zeitenFib4[i]
+      });
+  }
+
+
+</script>
+<!-- dieser Code zeigt die Implementierung und die Tests an -->
+<script>
+$('pre#ad-1-2-source').html($('#ad-1-2-code').html())
+</script>
+
+<h3>
+Experimente
+</h3>
+
+<div id="ad-1-2-experiments" style="height: 250px;"></div>
+<script>
+new Morris.Line({
+  element: 'ad-1-2-experiments',
+  parseTime: false,
+  data: ad_1_2_data,
+  xkey: 'experiment',
+  ykeys: ['fibdirekt', 'fib2', 'fib3', 'fib4'],
+  labels: ['Zeit fib_direkt', 'Zeit fib2', 'Zeit fib3', 'Zeit fib4']
+});
+</script>
+
+<!-- Aufgabe 3 -->
+<h2>
+Aufgabe 3
+Implementierung
+</h3>
+<!-- In diesem Element wird der Inhalt des scripts mit der ID ad-1-2-code angezeigt -->
+<pre id="ad-1-3-source"></pre>
+<h3>
+Testergebnisse
+</h3>
+<div id="ad-1-3-results"></div>
+<!-- Code und Tests hier hin -->
+<script id="ad-1-3-code">
+
+	// Ein Listenelement
+
+	function ListenElement(wert, nachfolger) {
+
+		this.nachfolger = nachfolger;
+		this.wert = wert;
+
+		this.gibNachfolger = function() {
+			return this.nachfolger;
+		}
+
+	}
+
+
+	// Eine Liste besteht aus ListenElement's
+	function Liste(startElement) {
+
+		var kopf = startElement;
+		var size = 0;
+
+		var derefCounter = 0;
+
+		// Falls startElement eingegeben wurde -> size++
+		if(startElement) {
+			size++;
+		}
+
+		// Element vorne einfügen
+		this.cons = function (listenElement) {
+			listenElement.nachfolger = kopf;
+			kopf = listenElement;
+			size++;
+			derefCounter++;
+		}
+
+		// Vorderstes Element
+		this.head = function () {
+			return kopf;
+		}
+
+		// True, falls liste leer, sonst false
+		this.isEmpty = function () {
+			if (!kopf) {
+				return true;
+			}
+
+			return false;
+		}
+
+		// Element an der stelle einfügen
+		this.insert = function (x, stelle) {
+
+			if (stelle === 0) {
+				this.cons(x);
+			}
+
+			if (stelle > 0) {
+				var element = kopf;
+
+				for (i = 0; i < stelle - 1; i++) {
+					element = element.nachfolger;
+				}
+
+				var temporaeresListenElement = element.nachfolger;
+				element.nachfolger = x;
+				x.nachfolger = temporaeresListenElement;
+
+				size++;
+				derefCounter++;
+			}
+
+			if (stelle > size) {
+				console.error("Die Stelle existiert nicht.");
+			}
+		}
+
+		this.length = function() {
+			return size;
+		}
+
+		this.dereferences = function() {
+			return derefCounter;
+		}
+
+		this.resetDerefCounter = function() {
+			derefCounter = 0;
+		}
+	}
+
+	//Tests
+	var test_element1 = new ListenElement(10,null);
+	var test_element2 = new ListenElement(20,null);
+	var test_element3 = new ListenElement(30,null);
+
+	var listen_test1 = new Liste(test_element1);
+
+	assert(listen_test1.isEmpty() === false, "listen_test1.isEmpty() = false");
+	assert(listen_test1.length() === 1, "length === 1");
+
+	listen_test1.cons(test_element2);
+
+	assert(listen_test1.head() === test_element2, "listen_test1.head() = test_element2");
+	assert(listen_test1.length() === 2, "length === 2");
+
+	listen_test1.insert(test_element3,1);
+
+	assert(listen_test1.head().gibNachfolger() === test_element3, "listen_test1.head().gibNachfolger() === test_element3");
+	assert(listen_test1.head().gibNachfolger().gibNachfolger() === test_element1, "listen_test1.head().gibNachfolger().gibNachfolger() === test_element1");
+
+
+
+	var ad_1_3_data = [];
+
+	// Experiments
+  
+	var liste_exp = new Liste();
+
+	for(i = 0; i < 100; i ++) {
+
+		liste_exp.cons(new ListenElement(i));
+
+		ad_1_3_data.push({
+		  experiment : i,
+		  value : liste_exp.dereferences()
+		});
+  	}
+
+
+
+</script>
+<!-- dieser Code zeigt die Implementierung und die Tests an -->
+<script>
+$('pre#ad-1-3-source').html($('#ad-1-3-code').html())
+</script>
+
+<h3>
+Experimente
+</h3>
+
+<div id="ad-1-3-experiments" style="height: 250px;"></div>
+<script>
+	new Morris.Line({
+	  element: 'ad-1-3-experiments',
+	  parseTime: false,
+	  data: ad_1_3_data,
+	  xkey: 'experiment',
+	  ykeys: ['value'],
+	  labels: ['Value']
+	});
+</script>
+
+</body>
+</html>
