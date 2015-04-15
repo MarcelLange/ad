@@ -162,85 +162,86 @@ Testergebnisse
 <div id="ad-1-2-results"></div>
 <!-- Code und Tests hier hin -->
 <script id="ad-1-2-code">
-  var ad_1_2_data = [];
 
-  function fib_direkt (n) {
-  	if(n <= 1) {
-  		return 1;
-  	}
+	var ad_1_2_data = [];
 
-  	return (fib_direkt(n-1) + fib_direkt(n-2));
-  }
+	function fib_direkt (n) {
+		if(n <= 1) {
+			return 1;
+		}
 
-  
+		return (fib_direkt(n-1) + fib_direkt(n-2));
+	}
 
-  var memo = [];
-  for (i = 0; i <= 30; i++) {
-  	memo[i] = 0;
-  }
 
-  memo[1] = 1;
-  memo[2] = 1;
 
-  function fib2 (n) {
-  	if (memo[n] != 0) {
-  		return memo[n];
-  	}
+	var memo = [];
+	for (i = 0; i <= 30; i++) {
+		memo[i] = 0;
+	}
 
-  	memo[n] = fib2(n-1) + fib2(n-2);
-  	return memo[n];
-  }
+	memo[1] = 1;
+	memo[2] = 1;
 
-	function fib3(n, prev, cur) {
+	function fib2 (n) {
+		if (memo[n] != 0) {
+			return memo[n];
+		}
+
+		memo[n] = fib2(n-1) + fib2(n-2);
+		return memo[n];
+	}
+
+	function fib3 (n) {
+		return fib3_rec(n, 0, 1);
+	}
+
+	function fib3_rec(n, prev, cur) {
 		if (n === 0)
 	    	return 0;
-	    if (prev === null)
-	    	prev = 0;
-	    if (cur === null)
-	    	cur = 1;
 	    if (n < 2)
 	   		return cur;
 	    
-	    return fib3(n - 1, cur, cur + prev);
+	    return fib3_rec(n - 1, cur, cur + prev);
 	}
 
-  function fib4 (n) {
-  	var y = 0;
-  	var x = 1;
-  	var aux;
+	function fib4 (n) {
+		var y = 0;
+		var x = 1;
+		var aux;
 
-  	for (i = 0; i < n; i++) {
-  		aux = y;
-  		y = x;
-  		x = x + aux;
-  	}
+		for (i = 0; i < n; i++) {
+			aux = y;
+			y = x;
+			x = x + aux;
+		}
 
-  	return y;
-  }
+		return y;
+	}
 
-  // Tests
-  assert(fib2(2) === 1, "fib2(2) = 1");
-  assert(fib2(4) === 3, "fib2(4) = 3");
-  assert(fib2(12) === 144, "fib2(12) = 144");
-  assert(fib2(15) === 610, "fib2(15) = 610");
+	// Tests
+	assert(fib2(2) === 1, "fib2(2) = 1");
+	assert(fib2(4) === 3, "fib2(4) = 3");
+	assert(fib2(12) === 144, "fib2(12) = 144");
+	assert(fib2(15) === 610, "fib2(15) = 610");
 
-  assert(fib3(2, null, null) === 1, "fib3(2) = 1");
-  assert(fib3(4, null, null) === 3, "fib3(4) = 3");
-  assert(fib3(12, null, null) === 144, "fib3(12) = 144");
-  assert(fib3(15, null, null) === 610, "fib3(15) = 610");
+	assert(fib3(2) === 1, "fib3(2) = 1");
+	assert(fib3(4) === 3, "fib3(4) = 3");
+	assert(fib3(12) === 144, "fib3(12) = 144");
+	assert(fib3(15) === 610, "fib3(15) = 610");
 
-  assert(fib4(2) === 1, "fib4(2) = 1");
-  assert(fib4(4) === 3, "fib4(4) = 3");
-  assert(fib4(12) === 144, "fib4(12) = 144");
-  assert(fib4(15) === 610, "fib4(15) = 610");
+	assert(fib4(2) === 1, "fib4(2) = 1");
+	assert(fib4(4) === 3, "fib4(4) = 3");
+	assert(fib4(12) === 144, "fib4(12) = 144");
+	assert(fib4(15) === 610, "fib4(15) = 610");
 
 
-  var zeitenFib = [];
-  var zeitenFib2 = [];
-  var zeitenFib3 = [];
-  var zeitenFib4 = [];
+	var zeitenFib = [];
+	var zeitenFib2 = [];
+	var zeitenFib3 = [];
+	var zeitenFib4 = [];
 
-  function experimente () {
+	function experimente () {
 	for (i = 0; i < 35; i++) {
 		var t_start, t_end;
 		t_start = new Date().getTime();
@@ -281,20 +282,20 @@ Testergebnisse
 		zeitenFib4.push(t_end-t_start);
 	}
 
-  }
+	}
 
-  experimente();
+	experimente();
 
-  // Experiments
-  for(i = 0; i < zeitenFib.length - 1; i++) {
-    ad_1_2_data.push({
-      	experiment : i,
-      	fibdirekt : zeitenFib[i],
-      	fib2: zeitenFib2[i],
-      	fib3: zeitenFib3[i],
-      	fib4: zeitenFib4[i]
-      });
-  }
+	// Experiments
+	for(i = 0; i < zeitenFib.length - 1; i++) {
+	ad_1_2_data.push({
+	  	experiment : i,
+	  	fibdirekt : zeitenFib[i],
+	  	fib2: zeitenFib2[i],
+	  	fib3: zeitenFib3[i],
+	  	fib4: zeitenFib4[i]
+	  });
+	}
 
 
 </script>
@@ -407,6 +408,10 @@ Testergebnisse
 			if (stelle > size) {
 				console.error("Die Stelle existiert nicht.");
 			}
+		}
+
+		this.tail = function() {
+			return new Liste(kopf.gibNachfolger);
 		}
 
 		this.length = function() {
